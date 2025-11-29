@@ -10,7 +10,7 @@ This project implements a Multi-Agent System (MAS) that acts as an autonomous Fa
 ## 🏗 Architecture
 The system follows a hierarchical flow orchestrated by `run.py`.
 
-![Agent Architecture](graph.jpg)
+![Agent Architecture](agent_graph.md)
 
 * **Planner Agent:** Decomposes user queries into executable steps.
 * **Data Agent:** Executes Python code to extract metrics from `data/`.
@@ -26,7 +26,7 @@ The system follows a hierarchical flow orchestrated by `run.py`.
 ### Installation
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/](https://github.com/)<your-username>/kasparro-agentic-fb-analyst-diwakar-sharma.git
+    git clone https://github.com/diwakar7sharma/kasparro-agentic-fb-analyst-diwakar-sharma.git
     cd kasparro-agentic-fb-analyst-diwakar-sharma
     ```
 

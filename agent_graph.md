@@ -5,7 +5,7 @@ This system uses a sequential hierarchical flow where the Planner dictates the s
 ```mermaid
 graph LR
     User[User Query] --> Planner[Planner Agent]
-    Planner -->|Generates<br/>Steps| Orch[Orchestrator<br/>(run.py)]
+    Planner -->|Generates<br/>Steps| Orch["Orchestrator<br/>(run.py)"]
     
     Orch -->|Step 1:<br/>Get Metrics| Data[Data Agent]
     Data -->|Pandas<br/>Calc| DB[(CSV Data)]
