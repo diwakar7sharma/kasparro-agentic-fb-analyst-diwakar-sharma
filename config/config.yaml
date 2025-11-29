@@ -10,7 +10,7 @@ llm:
   max_tokens: 4000
 
 data:
-  filepath: "data/facebook_ads_data.csv" # Updated to match our generator script
+  filepath: "data/synthetic_fb_ads_undergarments.csv" # Updated to match our generator script
   required_columns:
     - "campaign_id"
     - "date"
