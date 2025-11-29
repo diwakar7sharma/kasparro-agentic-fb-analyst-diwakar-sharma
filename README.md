@@ -10,7 +10,7 @@ This project implements a Multi-Agent System (MAS) that acts as an autonomous Fa
 ## 🏗 Architecture
 The system follows a hierarchical flow orchestrated by `run.py`.
 
-![Agent Architecture](agent_graph.md)
+![Agent Architecture](graph.jpg)
 
 * **Planner Agent:** Decomposes user queries into executable steps.
 * **Data Agent:** Executes Python code to extract metrics from `data/`.
