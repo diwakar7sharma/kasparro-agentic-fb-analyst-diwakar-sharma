@@ -1,0 +1,23 @@
+app:
+  name: "Kasparro FB Analyst Agent"
+  version: "1.0.0"
+  output_dir: "output"
+
+llm:
+  provider: "gemini"
+  model: "gemini-2.0-flash" # Fast, free, and good for logic
+  temperature: 0.1
+  max_tokens: 4000
+
+data:
+  filepath: "data/facebook_ads_data.csv" # Updated to match our generator script
+  required_columns:
+    - "campaign_id"
+    - "date"
+    - "spend"
+    - "impressions"
+    - "clicks"
+    - "purchases"
+    - "roas"
+    - "creative_text"
+    - "audience_type"
