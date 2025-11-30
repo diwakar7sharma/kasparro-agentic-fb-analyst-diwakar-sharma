@@ -1,3 +1,8 @@
+# Agent Architecture
+
+This system uses a sequential hierarchical flow where the Planner dictates the steps, and context is passed forward to ensure agents are "aware" of previous findings. The Evaluator Agent acts as a quality gate before insights are finalized.
+
+```mermaid
 graph LR
     User[User Query] --> Planner[Planner Agent]
     Planner -->|Generates Steps| Orch["Orchestrator<br/>(run.py)"]
