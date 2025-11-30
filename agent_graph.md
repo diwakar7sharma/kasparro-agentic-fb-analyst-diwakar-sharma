@@ -1,23 +1,23 @@
 graph LR
     User[User Query] --> Planner[Planner Agent]
-    Planner -->|Generates<br/>Steps| Orch["Orchestrator<br/>(run.py)"]
+    Planner -->|Generates Steps| Orch["Orchestrator<br/>(run.py)"]
     
     %% Step 1: Data Gathering
-    Orch -->|Step 1:<br/>Get Metrics| Data[Data Agent]
-    Data -->|Pandas<br/>Calc| DB[(CSV Data)]
-    DB -->|Returns<br/>Data| Data
-    Data -.->|Data<br/>Context| Orch
+    Orch -->|"Step 1:<br/>Get Metrics"| Data[Data Agent]
+    Data -->|"Pandas<br/>Calc"| DB[(CSV Data)]
+    DB -->|"Returns<br/>Data"| Data
+    Data -.->|"Data<br/>Context"| Orch
     
     %% Step 2: Insight Generation & Validation (The Loop)
-    Orch -->|Step 2:<br/>Find Patterns| Insight[Insight Agent]
-    Insight -->|Raw<br/>Hypothesis| Evaluator[Evaluator Agent]
+    Orch -->|"Step 2:<br/>Find Patterns"| Insight[Insight Agent]
+    Insight -->|"Raw Hypothesis"| Evaluator[Evaluator Agent]
     
-    Evaluator -->|Confidence > 70%<br/>(Validated)| Orch
-    Evaluator -.->|Confidence Low<br/>(Retry w/ Feedback)| Insight
+    Evaluator -->|"Confidence > 70%<br/>(Validated)"| Orch
+    Evaluator -.->|"Confidence Low<br/>(Retry w/ Feedback)"| Insight
     
     %% Step 3: Creative Action
-    Orch -->|Step 3:<br/>Fix Ads| Creative[Creative Agent]
-    Creative -.->|New<br/>Ad Copy| Orch
+    Orch -->|"Step 3:<br/>Fix Ads"| Creative[Creative Agent]
+    Creative -.->|"New<br/>Ad Copy"| Orch
     
     Orch ==>|Compiles| Report[Final Report.md]
     
