@@ -1132,3 +1132,1729 @@ overall_metrics = calculate_metrics(df)
 result = str(overall_metrics)
 ```
 
+
+2025-11-30 13:47:32,840 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Strategist.
+
+TASK:
+Break down the user's query into specific steps for your team.
+Your team consists of:
+1. Data Agent (Loads CSV, calculates metrics like ROAS, Spend, CTR)
+2. Insight Agent (Finds patterns, explains "Why" things happened)
+3. Creative Agent (Writes new ad copy)
+
+USER QUERY:
+Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+OUTPUT FORMAT:
+Return a JSON object with a "steps" key.
+Example:
+{
+  "steps": [
+    "Ask Data A...
+
+
+2025-11-30 13:47:37,268 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```json
+{
+  "steps": [
+    "Data Agent: Load CSV data for the last 30 days, including Spend, Revenue, Impressions, Clicks, and Conversions. Calculate daily ROAS, CTR, CPC, and Conversion Rate.",
+    "Insight Agent: Analyze the ROAS decline over the last 30 days. Identify potential contributing factors such as: increased competition, ad fatigue, changes in audience behavior, seasonality, landing page performance, and bidding strategy effectiveness. Look for correlations between the ROAS decline and changes in CTR, CPC, and Conversion Rate. Segment the data by campaign, ad set, and ad to pinpoint specific areas of underperformance.",
+    "Insight Agent: Investigate if there were any significant external factors that could have impacted performance, such as changes in Facebook's algorithm, competitor activity, or economic events.",
+    "Insight Agent: Review the targeting settings for each ad set. Determine if the audience is still relevant and responsive. Check for audience overlap between ad sets.",
+    "Insight Agent: Analyze the performance of existing ad creatives. Identify which creatives are performing poorly and contributing to the ROAS decline. Look for patterns in the underperforming creatives (e.g., similar messaging, visuals, or call-to-actions).",
+    "Creative Agent: Based on the Insight Agent's findings, develop new ad copy variations. Focus on addressing potential issues such as ad fatigue, irrelevant messaging, or weak call-to-actions. Suggest at least 3 different headline variations and 3 different body text variations for each underperforming ad.",
+    "Creative Agent: Ensure the new ad copy aligns with the target audience and the overall marketing message. Emphasize unique selling propositions and benefits.",
+    "Creative Agent: Consider incorporating different ad formats (e.g., video, carousel) to refresh the creative approach.",
+    "Data Agent: Once the new creatives are implemented, monitor their performance closely and provide daily reports on ROAS, CTR, CPC, and Conversion Rate. Compare the performance of the new creatives to the old creatives to assess their effectiveness."
+  ]
+}
+```
+
+
+2025-11-30 13:47:37,269 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Python Data Analyst. You have access to a pandas DataFrame named 'df'.
+
+DATA SCHEMA:
+The 'df' contains these columns:
+- campaign_name (str): Name of the campaign
+- adset_name (str): Name of the ad set
+- date (str): Date in YYYY-MM-DD
+- spend (float): Money spent
+- impressions (int): Views
+- clicks (int): Clicks
+- ctr (float): Click-Through Rate
+- purchases (int): Number of conversions
+- revenue (float): Total revenue
+- roas (float): Return on Ad Spend
+- creative_type (str): Type ...
+
+
+2025-11-30 13:47:39,620 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```python
+import pandas as pd
+from datetime import datetime, timedelta
+
+today = datetime.today()
+thirty_days_ago = today - timedelta(days=30)
+thirty_days_ago_str = thirty_days_ago.strftime('%Y-%m-%d')
+
+df['date'] = pd.to_datetime(df['date'])
+df_recent = df[df['date'] >= thirty_days_ago_str].copy()
+
+df_recent['roas'] = df_recent['revenue'] / df_recent['spend']
+df_recent['ctr'] = df_recent['clicks'] / df_recent['impressions']
+df_recent['cpc'] = df_recent['spend'] / df_recent['clicks']
+df_recent['conversion_rate'] = df_recent['purchases'] / df_recent['clicks']
+
+daily_metrics = df_recent.groupby('date')[['spend', 'revenue', 'impressions', 'clicks', 'purchases']].sum()
+
+daily_metrics['roas'] = daily_metrics['revenue'] / daily_metrics['spend']
+daily_metrics['ctr'] = daily_metrics['clicks'] / daily_metrics['impressions']
+daily_metrics['cpc'] = daily_metrics['spend'] / daily_metrics['clicks']
+daily_metrics['conversion_rate'] = daily_metrics['purchases'] / daily_metrics['clicks']
+
+result = daily_metrics.to_string()
+```
+
+
+2025-11-30 13:47:39,643 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+TASK:
+Analyze the data above and answer the user's question.
+- Look for correlations (e.g., High Spend + Low ROAS = Inefficiency).
+- Iden...
+
+
+2025-11-30 13:47:42,079 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Subject: ROAS Decline Analysis - Last 30 Days
+
+Based on the provided data, I am unable to perform a comprehensive analysis of the ROAS decline over the last 30 days. The data frame is empty, meaning there is no data available for spend, revenue, impressions, clicks, purchases, ROAS, CTR, CPC, or conversion rate.
+
+To properly analyze the ROAS decline, I require data including:
+
+*   **Historical Performance Data:** Spend, revenue, impressions, clicks, purchases, ROAS, CTR, CPC, and conversion rate data for the last 30 days, segmented by campaign, ad set, and ad.
+*   **Audience Data:** Information on audience targeting (demographics, interests, behaviors) for each ad set.
+*   **Creative Data:** Details on the creatives used in each ad (images, videos, ad copy).
+*   **Landing Page Data:** Performance metrics for the landing pages associated with the ads (bounce rate, time on page, conversion rate).
+*   **Bidding Strategy Data:** Information on the bidding strategies used for each campaign and ad set (e.g., lowest cost, target ROAS).
+
+Once this data is provided, I can perform the requested analysis and identify the potential contributing factors to the ROAS decline.
+
+
+
+2025-11-30 13:47:42,200 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+TASK:
+Analyze the data above and answer the user's question.
+- Look for correlations (e.g., High Spend + Low ROAS = Inefficiency).
+- Iden...
+
+
+2025-11-30 13:47:48,590 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've investigated potential external factors that could explain the decline in ROAS. Given the empty data frame provided initially, I'm operating under the assumption that the ROAS decline is a recent development *not yet reflected in the provided data*. Therefore, my analysis focuses on potential external causes that could be impacting performance *currently*.
+
+Here's a breakdown of potential external factors:
+
+*   **Facebook Algorithm Changes:**
+    *   **Likelihood:** Moderate to High. Facebook frequently updates its algorithm. These updates can impact ad delivery, targeting, and optimization, leading to fluctuations in performance.
+    *   **Impact:** Could affect ad reach, relevance score, and cost per result. A recent algorithm change favoring video content, for example, could negatively impact static image ads.
+    *   **Investigation Steps:** Check Facebook's official blog, news outlets specializing in social media marketing, and industry forums for announcements or reports of recent algorithm updates. Look for changes related to bidding, targeting, or ad ranking.
+
+*   **Increased Competitor Activity:**
+    *   **Likelihood:** Moderate. Increased competition can drive up ad costs and reduce ROAS.
+    *   **Impact:** Higher CPMs (Cost Per Mille), lower ad auction win rates, and increased ad fatigue as users see more similar ads.
+    *   **Investigation Steps:** Manually monitor competitor ads (using Facebook's Ad Library) to see if there's been a surge in activity or if competitors are using more aggressive bidding strategies. Also, consider using third-party competitive intelligence tools to track competitor ad spend and market share.
+
+*   **Economic Events/Seasonality:**
+    *   **Likelihood:** Variable, depends on the product/service and target audience.
+    *   **Impact:** Changes in consumer spending habits due to economic factors (e.g., inflation, recession fears) or seasonal trends (e.g., back-to-school, holidays) can significantly impact conversion rates and ROAS.
+    *   **Investigation Steps:** Analyze relevant economic indicators (e.g., consumer confidence index, unemployment rate) and compare current performance to historical data for the same period in previous years to identify seasonal trends.
+
+*   **Changes in Facebook's Ad Policies:**
+    *   **Likelihood:** Low to Moderate. Facebook occasionally updates its ad policies, which can impact ad approval rates and targeting options.
+    *   **Impact:** Disapproved ads, limited targeting capabilities, and increased compliance costs.
+    *   **Investigation Steps:** Review Facebook's Advertising Policies to ensure all ads are compliant. Check for any recent policy updates that may be affecting ad performance.
+
+*   **Platform Outages/Bugs:**
+    *   **Likelihood:** Low. While rare, Facebook can experience temporary outages or bugs that affect ad delivery and reporting.
+    *   **Impact:** Interrupted ad delivery, inaccurate data reporting, and wasted ad spend.
+    *   **Investigation Steps:** Check Facebook's status page and industry forums for reports of any platform issues.
+
+**Next Steps:**
+
+To provide more specific recommendations, I need data on ad performance metrics (spend, revenue, impressions, clicks, purchases, ROAS, CTR, CPC, conversion rate) over time, broken down by campaign, ad set, and ad creative. This will allow me to identify specific areas of underperformance and tailor my recommendations accordingly.
+
+
+
+2025-11-30 13:47:48,722 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+TASK:
+Analyze the data above and answer the user's question.
+- Look for correlations (e.g., High Spend + Low ROAS = Inefficiency).
+- Iden...
+
+
+2025-11-30 13:47:52,729 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've reviewed the provided data, and unfortunately, the DataFrame is empty. This means there's no performance data available for the last 30 days to analyze the ROAS decline.
+
+Therefore, I cannot directly assess the targeting settings, audience relevance, responsiveness, or audience overlap based on performance metrics.
+
+To proceed with your request, I need access to the actual Facebook Ads data, including:
+
+*   **Ad Set Level Data:** Spend, Revenue, Impressions, Clicks, Purchases, ROAS, CTR, CPC, Conversion Rate, Audience Targeting (Interests, Behaviors, Demographics, Custom Audiences, Lookalike Audiences).
+*   **Date Range:** Covering at least the last 30 days (and ideally longer for trend analysis).
+
+Once I have this data, I can perform the following analysis:
+
+*   **Audience Performance:**
+    *   Identify which audiences are driving the most revenue and ROAS.
+    *   Pinpoint underperforming audiences with high spend and low ROAS.
+    *   Analyze CTR and Conversion Rates for each audience to gauge responsiveness.
+*   **Audience Overlap:**
+    *   Check for significant audience overlap between ad sets, which can lead to increased competition and higher costs.
+*   **Relevance Assessment:**
+    *   Based on performance trends, determine if the current targeting is still relevant and effective.
+    *   Suggest potential refinements to audience targeting based on performance data and current market trends.
+
+Without the data, I can only offer general recommendations:
+
+*   **Review Audience Definitions:** Ensure your targeting criteria (interests, behaviors, demographics) are still aligned with your ideal customer profile.
+*   **Check for Audience Saturation:** If you've been targeting the same audiences for a long time, they may be experiencing ad fatigue. Consider expanding your reach or refreshing your creative.
+*   **Implement Audience Exclusion:** Exclude converters or website visitors from prospecting campaigns to avoid showing ads to people who have already purchased.
+*   **Test New Audiences:** Experiment with new interests, behaviors, or lookalike audiences to find untapped potential.
+*   **Consolidate Overlapping Audiences:** If significant overlap exists, consider consolidating ad sets to reduce competition and improve efficiency.
+
+Please provide the necessary data so I can conduct a thorough analysis and provide actionable insights.
+
+
+
+2025-11-30 13:47:53,012 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+TASK:
+Analyze the data above and answer the user's question.
+- Look for correlations (e.g., High Spend + Low ROAS = Inefficiency).
+- Iden...
+
+
+2025-11-30 13:47:55,083 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've analyzed the provided data. Unfortunately, the DataFrame is empty. This means there's no data available on spend, revenue, impressions, clicks, purchases, ROAS, CTR, CPC, or conversion rate for the last 30 days.
+
+**Therefore, I cannot perform a meaningful analysis of the ROAS decline or identify underperforming creatives.**
+
+To proceed, I need access to the actual data. Please provide a DataFrame containing the relevant metrics for the past 30 days, broken down by ad creative. Once I have that, I can:
+
+*   **Identify the specific creatives contributing to the ROAS decline.**
+*   **Look for patterns in underperforming creatives** (e.g., similar messaging, visuals, or call-to-actions).
+*   **Analyze metrics like CTR, CPC, and conversion rate** to understand *why* those creatives are failing.
+*   **Compare the performance of different creatives** to identify winners and losers.
+*   **Suggest new creative directions** based on the insights gained from the data.
+
+
+
+2025-11-30 13:47:55,203 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+TASK:
+Analyze the data above and answer the user's question.
+- Look for correlations (e.g., High Spend + Low ROAS = Inefficiency).
+- Iden...
+
+
+2025-11-30 13:48:01,938 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've reviewed the data provided.
+
+**Analysis of ROAS Decline (Last 30 Days):**
+
+*   **Critical Issue: Empty Dataframe.** The provided dataframe is empty. This means there is *no data* on spend, revenue, impressions, clicks, purchases, ROAS, CTR, CPC, or conversion rate for the last 30 days. Therefore, I cannot perform any meaningful analysis of the ROAS decline or identify specific underperforming ads, audiences, or creative fatigue.
+
+**Recommendations (Based on the *Assumption* of a ROAS Decline and Common Causes - Lacking Data):**
+
+Since I have no data, I will provide general recommendations based on common reasons for ROAS decline. These are *hypothetical* and should be tested once actual data is available.
+
+*   **Hypothesis 1: Ad Fatigue:** If CTR has been declining, it suggests ad fatigue.
+*   **Hypothesis 2: Audience Saturation:** The target audience may be seeing the ads too frequently.
+*   **Hypothesis 3: Increased Competition:** Competitors may have increased their bids or launched new, compelling creatives.
+*   **Hypothesis 4: Irrelevant Messaging:** The ad copy may no longer resonate with the target audience.
+*   **Hypothesis 5: Weak Call-to-Action:** The call-to-action may not be compelling enough to drive conversions.
+
+**Creative Agent: New Ad Copy Variations (Based on Hypothetical Issues):**
+
+Assuming ad fatigue and potentially irrelevant messaging, here are some ad copy variations.  *Remember, these are based on assumptions due to the lack of data.*  You'll need to tailor these to your specific product/service and target audience.  I'll assume the product is a "Premium Coffee Subscription Box" for this example.
+
+**Underperforming Ad (Hypothetical):** Let's assume the original ad focused solely on the convenience of the subscription.
+
+**Goal:** Refresh the messaging and address potential fatigue.
+
+**Headline Variations:**
+
+*   **Headline 1: (Focus on Quality/Exclusivity):** "Unlock the World's Finest Coffee Beans - Delivered."
+*   **Headline 2: (Focus on Experience/Discovery):** "Elevate Your Coffee Ritual: Discover New Flavors Every Month."
+*   **Headline 3: (Focus on Value/Benefit):** "Never Run Out of Amazing Coffee Again - Subscribe & Save!"
+
+**Body Text Variations:**
+
+*   **Body Text 1: (Quality/Exclusivity):** "Tired of the same old coffee? Our subscription box features rare and ethically sourced beans, roasted to perfection. Experience the difference."
+*   **Body Text 2: (Experience/Discovery):** "Embark on a coffee adventure! Each month, we curate a selection of unique and exciting coffees from around the globe. Expand your palate and discover your new favorite brew."
+*   **Body Text 3: (Value/Benefit):** "Enjoy premium coffee without the premium price tag. Get expertly curated coffee delivered right to your door, saving you time and money. Subscribe today and get 10% off your first box!"
+
+**Important Next Steps:**
+
+1.  **Provide Data:**  The most crucial step is to provide the actual data for the last 30 days (or longer) so a proper analysis can be performed.
+2.  **A/B Test:** Implement these new ad copy variations in A/B tests against the existing ads to determine which performs best.
+3.  **Monitor Performance:** Closely monitor the performance of the new ads, paying attention to CTR, conversion rate, and ROAS.
+4.  **Audience Segmentation:** Consider segmenting your audience and targeting different ad copy variations to different segments.
+5.  **Landing Page Optimization:** Ensure your landing page is optimized for conversions and aligns with the ad copy.
+
+Without the actual data, these recommendations are purely speculative. Please provide the data so I can give you a more accurate and helpful analysis.
+
+
+
+2025-11-30 13:48:02,066 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a World-Class Direct Response Copywriter for Facebook Ads.
+
+TASK:
+Generate 3 distinct ad variations based on the provided performance data and insights.
+- If CTR is low, focus on a stronger "Hook" or headline.
+- If Conversion Rate is low, focus on the "Offer" or "Call to Action" (CTA).
+- Maintain the brand voice: Professional yet urgent.
+
+INPUT CONTEXT:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Colu...
+
+
+2025-11-30 13:48:05,938 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```json
+{
+  "variations": [
+    {
+      "headline": "Urgent: Double Your Lead Generation in 30 Days (Or It's Free)",
+      "primary_text": "Struggling to convert leads? Our proven system guarantees a 2x increase in qualified leads within 30 days, or you don't pay. Limited spots available. Claim your free strategy session now!",
+      "cta": "Claim Your Free Strategy Session",
+      "reasoning": "Addresses low conversion rate by offering a strong, risk-free guarantee and creating urgency with limited availability. The free strategy session provides immediate value and a clear next step."
+    },
+    {
+      "headline": "Is Your Marketing ROI Tanking? Fix It Now!",
+      "primary_text": "Don't let another day go by with wasted ad spend. Our AI-powered solution identifies and eliminates inefficiencies, boosting your ROAS by up to 40%. See how it works with a personalized demo.",
+      "cta": "Request a Personalized Demo",
+      "reasoning": "Addresses low ROAS directly with a problem/solution approach. The headline is attention-grabbing, and the primary text highlights the benefits of the AI solution. The CTA encourages immediate engagement."
+    },
+    {
+      "headline": "Unlock Hidden Revenue: The Secret Your Competitors Don't Want You To Know",
+      "primary_text": "Discover the untapped potential in your existing data. Our advanced analytics platform reveals hidden opportunities to increase revenue and optimize your marketing campaigns. Get a free audit and see the difference.",
+      "cta": "Get Your Free Audit",
+      "reasoning": "Addresses low ROAS by focusing on uncovering hidden revenue opportunities. The 'secret' angle creates curiosity and the free audit provides tangible value upfront. This ad targets a more sophisticated audience looking for data-driven insights."
+    }
+  ]
+}
+```
+
+
+
+2025-11-30 13:48:05,939 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a World-Class Direct Response Copywriter for Facebook Ads.
+
+TASK:
+Generate 3 distinct ad variations based on the provided performance data and insights.
+- If CTR is low, focus on a stronger "Hook" or headline.
+- If Conversion Rate is low, focus on the "Offer" or "Call to Action" (CTA).
+- Maintain the brand voice: Professional yet urgent.
+
+INPUT CONTEXT:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Colu...
+
+
+2025-11-30 13:48:09,318 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```json
+{
+  "variations": [
+    {
+      "headline": "Urgent: [Your Industry] Leaders Are Automating - Are You?",
+      "primary_text": "Don't get left behind. See how [Your Company] is helping businesses like yours reclaim valuable time and resources with AI-powered automation. Limited spots available for a free demo!",
+      "cta": "Request a Free Demo Now",
+      "ad_format": "Video Ad (Showcasing quick wins and testimonials)",
+      "reasoning": "Addresses FOMO (Fear Of Missing Out) and uses social proof. Video format allows for dynamic demonstration of the product's value."
+    },
+    {
+      "headline": "Unlock Hidden Profits: Automate Your [Specific Task] Today!",
+      "primary_text": "Tired of tedious manual processes eating into your bottom line? [Your Company]'s AI solution streamlines [Specific Task], boosting efficiency and profitability. Get a personalized ROI forecast in minutes.",
+      "cta": "Get Your Free ROI Forecast",
+      "ad_format": "Carousel Ad (Each card highlighting a different benefit/feature)",
+      "reasoning": "Focuses on a specific pain point and offers a tangible benefit (ROI forecast). Carousel allows for showcasing multiple features and benefits."
+    },
+    {
+      "headline": "Limited Time Offer: Automate Your Business & Save Big!",
+      "primary_text": "For a limited time, get [Discount Percentage]% off your first year of [Your Company]'s AI automation platform. Stop wasting time and money on manual tasks. Start seeing results today!",
+      "cta": "Claim Your Discount Now",
+      "ad_format": "Image Ad (Visually appealing image related to automation or efficiency)",
+      "reasoning": "Creates urgency with a limited-time offer and emphasizes cost savings. Image ad provides a visual hook to capture attention."
+    }
+  ]
+}
+```
+
+
+
+2025-11-30 13:48:09,319 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Python Data Analyst. You have access to a pandas DataFrame named 'df'.
+
+DATA SCHEMA:
+The 'df' contains these columns:
+- campaign_name (str): Name of the campaign
+- adset_name (str): Name of the ad set
+- date (str): Date in YYYY-MM-DD
+- spend (float): Money spent
+- impressions (int): Views
+- clicks (int): Clicks
+- ctr (float): Click-Through Rate
+- purchases (int): Number of conversions
+- revenue (float): Total revenue
+- roas (float): Return on Ad Spend
+- creative_type (str): Type ...
+
+
+2025-11-30 13:48:13,312 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```python
+import pandas as pd
+import numpy as np
+
+# Assuming 'df' is already loaded
+
+# Calculate CPC
+df['cpc'] = df['spend'] / df['clicks']
+df['cpc'] = df['cpc'].replace([np.inf, -np.inf], 0)
+
+# Calculate Conversion Rate
+df['conversion_rate'] = df['purchases'] / df['clicks']
+df['conversion_rate'] = df['conversion_rate'].replace([np.inf, -np.inf], 0)
+
+# Identify new creatives (assuming creative_message contains 'new')
+df['is_new_creative'] = df['creative_message'].str.contains('new', case=False)
+
+# Group by date and creative type
+daily_performance = df.groupby(['date', 'is_new_creative']).agg(
+    total_spend=('spend', 'sum'),
+    total_impressions=('impressions', 'sum'),
+    total_clicks=('clicks', 'sum'),
+    avg_ctr=('ctr', 'mean'),
+    total_purchases=('purchases', 'sum'),
+    total_revenue=('revenue', 'sum')
+).reset_index()
+
+# Calculate ROAS, CPC and Conversion Rate
+daily_performance['roas'] = daily_performance['total_revenue'] / daily_performance['total_spend']
+daily_performance['roas'] = daily_performance['roas'].replace([np.inf, -np.inf], 0)
+daily_performance['cpc'] = daily_performance['total_spend'] / daily_performance['total_clicks']
+daily_performance['cpc'] = daily_performance['cpc'].replace([np.inf, -np.inf], 0)
+daily_performance['conversion_rate'] = daily_performance['total_purchases'] / daily_performance['total_clicks']
+daily_performance['conversion_rate'] = daily_performance['conversion_rate'].replace([np.inf, -np.inf], 0)
+
+# Pivot the table for comparison
+daily_performance = daily_performance.pivot(index='date', columns='is_new_creative', values=['roas', 'avg_ctr', 'cpc', 'conversion_rate'])
+daily_performance.columns = ['new_' + '_'.join(col).strip() if col[1] else 'old_' + '_'.join(col).strip() for col in daily_performance.columns]
+daily_performance = daily_performance.reset_index()
+
+result = daily_performance.to_string()
+```
+
+
+2025-11-30 13:50:09,931 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Strategist.
+
+TASK:
+Break down the user's query into specific steps for your team.
+Your team consists of:
+1. Data Agent (Loads CSV, calculates metrics like ROAS, Spend, CTR)
+2. Insight Agent (Finds patterns, explains "Why" things happened)
+3. Creative Agent (Writes new ad copy)
+
+USER QUERY:
+Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+OUTPUT FORMAT:
+Return a JSON object with a "steps" key.
+Example:
+{
+  "steps": [
+    "Ask Data A...
+
+
+2025-11-30 13:50:14,900 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```json
+{
+  "steps": [
+    "Data Agent: Load the last 30 days of ad performance data, including spend, revenue, impressions, clicks, CTR, CPC, and ROAS, broken down by campaign, ad set, and ad.",
+    "Data Agent: Calculate the daily ROAS trend for the last 30 days and identify the specific date when the decline began to accelerate.",
+    "Data Agent: Calculate the average ROAS for the 30 days prior to the decline and compare it to the average ROAS for the last 30 days to quantify the percentage decrease.",
+    "Insight Agent: Analyze the ROAS decline by examining changes in spend, CTR, CPC, and conversion rates across different campaigns, ad sets, and ads. Identify any statistically significant changes.",
+    "Insight Agent: Investigate potential external factors that may have contributed to the ROAS decline, such as increased competition, changes in audience behavior, seasonality, or platform updates.",
+    "Insight Agent: Analyze audience overlap and frequency. Are we showing ads too often to the same people? Is audience fatigue a factor?",
+    "Insight Agent: Review the performance of different ad placements (e.g., Facebook Feed, Instagram Stories) to identify any placements that are underperforming and contributing to the ROAS decline.",
+    "Insight Agent: Analyze the performance of different creative formats (e.g., image ads, video ads, carousel ads) to identify any formats that are underperforming.",
+    "Insight Agent: Examine the landing page experience. Are there any issues with page load speed, mobile responsiveness, or conversion optimization that could be impacting ROAS?",
+    "Creative Agent: Based on the Insight Agent's findings, develop three new ad copy variations for the top-performing campaigns and ad sets, focusing on addressing potential issues such as audience fatigue, creative fatigue, or underperforming placements/formats. These variations should include different headlines, body text, and calls to action.",
+    "Creative Agent: Develop three new image/video ad creatives based on the Insight Agent's findings. These creatives should be visually appealing, relevant to the target audience, and aligned with the new ad copy variations.",
+    "Creative Agent: Ensure all new ad copy and creatives adhere to Facebook's advertising policies and guidelines.",
+    "Data Agent: After the new creatives are launched, monitor their performance closely for the first 7 days, tracking key metrics such as impressions, clicks, CTR, CPC, and ROAS. Provide daily updates to the team.",
+    "Insight Agent: Analyze the performance of the new creatives compared to the old creatives. Identify any significant improvements or declines in performance. Provide recommendations for further optimization."
+  ]
+}
+```
+
+
+2025-11-30 13:50:14,901 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Python Data Analyst. You have access to a pandas DataFrame named 'df'.
+
+DATA SCHEMA:
+The 'df' contains these columns:
+- campaign_name (str): Name of the campaign
+- adset_name (str): Name of the ad set
+- date (str): Date in YYYY-MM-DD
+- spend (float): Money spent
+- impressions (int): Views
+- clicks (int): Clicks
+- ctr (float): Click-Through Rate
+- purchases (int): Number of conversions
+- revenue (float): Total revenue
+- roas (float): Return on Ad Spend
+- creative_type (str): Type ...
+
+
+2025-11-30 13:50:17,080 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```python
+import pandas as pd
+from datetime import datetime, timedelta
+
+today = datetime.today()
+thirty_days_ago = today - timedelta(days=30)
+thirty_days_ago_str = thirty_days_ago.strftime('%Y-%m-%d')
+
+df['date'] = pd.to_datetime(df['date'])
+df_recent = df[df['date'] >= thirty_days_ago_str]
+
+df_recent['cpc'] = df_recent['spend'] / df_recent['clicks']
+df_recent['cpc'] = df_recent['cpc'].fillna(0)
+
+result = df_recent.groupby(['campaign_name', 'adset_name', 'creative_message']).agg(
+    {'spend': 'sum',
+     'revenue': 'sum',
+     'impressions': 'sum',
+     'clicks': 'sum',
+     'ctr': 'mean',
+     'cpc': 'mean',
+     'roas': 'mean'}
+).reset_index().to_string()
+```
+
+
+2025-11-30 13:50:17,100 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Python Data Analyst. You have access to a pandas DataFrame named 'df'.
+
+DATA SCHEMA:
+The 'df' contains these columns:
+- campaign_name (str): Name of the campaign
+- adset_name (str): Name of the ad set
+- date (str): Date in YYYY-MM-DD
+- spend (float): Money spent
+- impressions (int): Views
+- clicks (int): Clicks
+- ctr (float): Click-Through Rate
+- purchases (int): Number of conversions
+- revenue (float): Total revenue
+- roas (float): Return on Ad Spend
+- creative_type (str): Type ...
+
+
+2025-11-30 13:50:18,943 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```python
+import pandas as pd
+
+df['date'] = pd.to_datetime(df['date'])
+df_last_30_days = df[df['date'] >= (df['date'].max() - pd.DateOffset(days=30))]
+
+daily_roas = df_last_30_days.groupby('date')['roas'].mean()
+
+roas_trend = daily_roas.to_frame(name='roas')
+roas_trend['roas_diff'] = roas_trend['roas'].diff()
+
+roas_trend['roas_diff_diff'] = roas_trend['roas_diff'].diff()
+
+acceleration_date = roas_trend['roas_diff_diff'].idxmin()
+
+result = f"The decline in ROAS began to accelerate around {acceleration_date.strftime('%Y-%m-%d')}"
+```
+
+
+2025-11-30 13:50:18,957 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Python Data Analyst. You have access to a pandas DataFrame named 'df'.
+
+DATA SCHEMA:
+The 'df' contains these columns:
+- campaign_name (str): Name of the campaign
+- adset_name (str): Name of the ad set
+- date (str): Date in YYYY-MM-DD
+- spend (float): Money spent
+- impressions (int): Views
+- clicks (int): Clicks
+- ctr (float): Click-Through Rate
+- purchases (int): Number of conversions
+- revenue (float): Total revenue
+- roas (float): Return on Ad Spend
+- creative_type (str): Type ...
+
+
+2025-11-30 13:50:21,755 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```python
+import pandas as pd
+
+df['date'] = pd.to_datetime(df['date'])
+
+# Identify the date of decline (assuming ROAS decline is the date when ROAS is lower than the previous day)
+df['roas_lag'] = df['roas'].shift(1)
+decline_date = df.loc[df['roas'] < df['roas_lag'], 'date'].min()
+
+if pd.isna(decline_date):
+    result = "ROAS is not declining"
+else:
+    # Calculate the average ROAS for the 30 days prior to the decline
+    start_date_before = decline_date - pd.DateOffset(days=60)
+    end_date_before = decline_date - pd.DateOffset(days=30)
+    roas_before = df[(df['date'] >= start_date_before) & (df['date'] < end_date_before)]['roas'].mean()
+
+    # Calculate the average ROAS for the last 30 days
+    start_date_after = decline_date - pd.DateOffset(days=30)
+    roas_after = df[df['date'] >= start_date_after]['roas'].mean()
+
+    # Calculate the percentage decrease
+    if not pd.isna(roas_before) and not pd.isna(roas_after):
+        percentage_decrease = ((roas_before - roas_after) / roas_before) * 100
+        result = f"{percentage_decrease:.2f}%"
+    else:
+        result = "Insufficient data to calculate percentage decrease."
+```
+
+
+2025-11-30 13:50:21,768 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [campaign_name, adset_name, creative_message, spend, revenue, impressions, clicks, ctr, cpc, roas]
+Index: []
+
+[DATA FINDINGS]:
+The decline in ROAS began to accelerate around 2025-03-03
+
+[DATA FINDINGS]:
+Insufficient data to calcul...
+
+
+2025-11-30 13:50:27,558 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've analyzed the provided data regarding the ROAS decline over the last 30 days. Here's a breakdown of my findings:
+
+*   **Data Limitations:** The primary challenge is the empty DataFrame. This means I have no granular data on campaign names, ad set names, creative messages, spend, revenue, impressions, clicks, CTR, CPC, or ROAS for individual campaigns, ad sets, or ads. This severely limits my ability to perform a detailed analysis.
+
+*   **ROAS Decline Timeline:** The ROAS decline accelerated around 2025-03-03. This is a crucial piece of information.
+
+*   **Lack of Quantitative Decline:** I cannot calculate the percentage decrease in ROAS due to insufficient data.
+
+**Analysis & Potential Causes (Based on Limited Data & Common Scenarios):**
+
+Given the limited data, I can only offer potential explanations for the ROAS decline. These are based on common trends and require further investigation with more detailed data:
+
+*   **Creative Fatigue:** Since the decline accelerated around 2025-03-03, it's possible that the existing creatives started losing their effectiveness around that time. Users may have become desensitized to the ads, leading to lower CTR and conversion rates. *Without creative-level data, I cannot confirm this.*
+
+*   **Increased Competition:** A rise in competitor advertising activity around 2025-03-03 could have increased CPC and decreased conversion rates, impacting ROAS. *This requires external market data to validate.*
+
+*   **Audience Saturation:** The target audience might be experiencing ad fatigue, leading to lower engagement and conversion rates. *Audience-level data is needed to confirm this.*
+
+*   **External Factors:** Changes in the market, seasonality, or economic conditions could have influenced consumer behavior and purchase decisions. *This requires external market data to validate.*
+
+**Recommendations (Without Granular Data):**
+
+Since I lack detailed data, my recommendations are general and aimed at gathering the necessary information for a more in-depth analysis:
+
+1.  **Data Collection is Critical:** Prioritize collecting detailed data on campaign performance, including the metrics listed in the original DataFrame (campaign name, ad set name, creative message, spend, revenue, impressions, clicks, CTR, CPC, ROAS). Ensure this data is readily available for analysis.
+
+2.  **Creative Refresh:** Given the timeline, consider launching new ad creatives to combat potential creative fatigue. Test different ad formats, messaging, and visuals.
+
+3.  **Audience Segmentation & Testing:** Review your audience targeting and consider segmenting your audience further. Test different audience segments with tailored ad creatives.
+
+4.  **Landing Page Optimization:** Ensure your landing pages are optimized for conversions. A poor landing page experience can negate the effectiveness of your ads.
+
+5.  **Monitor Key Metrics Closely:** Track spend, CTR, CPC, and conversion rates daily to identify any further trends or anomalies.
+
+**Next Steps:**
+
+To provide a more accurate and actionable analysis, I need the detailed campaign data outlined in the initial DataFrame. Once I have that data, I can:
+
+*   Identify specific campaigns, ad sets, or ads that are underperforming.
+*   Quantify the impact of each factor (e.g., the percentage decrease in CTR for specific ads).
+*   Provide data-driven recommendations for optimizing your Facebook ad campaigns.
+
+
+
+2025-11-30 13:50:28,886 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [campaign_name, adset_name, creative_message, spend, revenue, impressions, clicks, ctr, cpc, roas]
+Index: []
+
+[DATA FINDINGS]:
+The decline in ROAS began to accelerate around 2025-03-03
+
+[DATA FINDINGS]:
+Insufficient data to calcul...
+
+
+2025-11-30 13:50:33,450 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've reviewed the provided data and the initial analysis. Here's an investigation into potential external factors contributing to the ROAS decline, keeping in mind the limited data available:
+
+*   **Decline Acceleration Timing:** The ROAS decline accelerated around 2025-03-03. This date is a crucial starting point for investigating external factors.
+
+*   **Increased Competition:**
+
+    *   *Industry Trends:* Research if any major competitors launched new campaigns or products around March 3rd, 2025. Use tools like Similarweb or Adbeat to analyze competitor ad spend and creative strategies.
+    *   *Auction Dynamics:* Increased competition in the Facebook Ads auction could drive up CPCs, impacting ROAS. This would be reflected in higher CPMs (Cost per Mille) if that data were available.
+
+*   **Changes in Audience Behavior:**
+
+    *   *External Events:* Were there any significant cultural events, news stories, or economic shifts around March 3rd that might have altered consumer spending habits or preferences related to your product/service?
+    *   *Platform Trends:* Check for any emerging trends or viral content on Facebook that might be diverting user attention away from ads.
+
+*   **Seasonality:**
+
+    *   *Calendar Events:* While the provided timeframe is short, consider if March has any inherent seasonal trends relevant to your business. Are there any holidays or events that typically impact sales, either positively or negatively?
+
+*   **Platform Updates:**
+
+    *   *Algorithm Changes:* Investigate if Facebook announced any algorithm updates or policy changes around March 3rd that could affect ad delivery, targeting, or attribution. Check Facebook's official marketing blog and industry news sources.
+    *   *Bug Reports:* Monitor industry forums and communities for reports of any widespread issues or bugs on the Facebook Ads platform that might be impacting performance.
+
+**Next Steps (Given Data Limitations):**
+
+1.  **Gather More Data:** The most critical step is to obtain more granular data, including CPM, frequency, audience demographics, and performance metrics broken down by placement (Facebook feed, Instagram feed, etc.).
+2.  **Competitive Analysis:** Conduct a thorough competitive analysis to understand their strategies and potential impact on your ROAS.
+3.  **Audience Segmentation:** Analyze audience performance to identify any segments that are underperforming and adjust targeting accordingly.
+4.  **Creative Refresh:** Based on the competitive analysis and audience insights, develop new creative concepts that are more engaging and relevant to your target audience.
+
+Without more detailed data, it's difficult to pinpoint the exact cause of the ROAS decline. However, by investigating these potential external factors and gathering more data, you can gain a better understanding of the situation and develop effective strategies to improve performance.
+
+
+
+2025-11-30 13:50:35,042 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [campaign_name, adset_name, creative_message, spend, revenue, impressions, clicks, ctr, cpc, roas]
+Index: []
+
+[DATA FINDINGS]:
+The decline in ROAS began to accelerate around 2025-03-03
+
+[DATA FINDINGS]:
+Insufficient data to calcul...
+
+
+2025-11-30 13:50:39,541 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, here's an analysis of audience overlap and frequency, based on the provided data, to determine if audience fatigue is contributing to the ROAS decline:
+
+**Analysis of Audience Overlap and Frequency:**
+
+*   **Data Limitations:** Unfortunately, the provided data is insufficient to directly analyze audience overlap and frequency. The DataFrame is empty, lacking information on audience demographics, frequency metrics (impressions per user), and reach.
+
+*   **ROAS Decline Correlation:** The ROAS decline accelerated around 2025-03-03. This timeframe is crucial. We need to investigate if there were any changes to targeting, bidding strategies, or creative rotations around this date.
+
+*   **Potential for Audience Fatigue:** Given the ROAS decline, and without data to disprove it, audience fatigue *is* a plausible contributing factor. Showing the same ads too frequently to the same audience can lead to ad blindness and decreased engagement.
+
+**Recommendations (Given Data Constraints):**
+
+*   **Gather Audience Overlap Data:** The *most important* next step is to obtain data on audience overlap. Facebook Ads Manager provides tools to estimate audience overlap between different ad sets. This will reveal if we're targeting the same users across multiple campaigns.
+
+*   **Analyze Frequency Metrics:** Pull reports that include frequency (impressions per person) at the ad set level. A rising frequency, especially above 3-4 impressions per week, can indicate fatigue.
+
+*   **Review Targeting:** Examine the targeting criteria of your ad sets. Are you using broad audiences that might be overlapping significantly? Consider refining your targeting with more specific interests, behaviors, or lookalike audiences.
+
+*   **Implement Frequency Capping:** If frequency is high, implement frequency capping within your ad sets to limit the number of times a user sees your ads within a specific timeframe.
+
+*   **Creative Refresh:** While the initial request was for new creative suggestions, without knowing what creatives are currently running and their performance, it's difficult to provide specific recommendations. However, a general refresh of ad creatives is always a good practice, especially when ROAS is declining. Test new visuals, ad copy, and value propositions.
+
+*   **Audience Segmentation:** Segment your audience based on engagement levels. For example, create a "highly engaged" audience (website visitors, purchasers) and a "less engaged" audience. Tailor your messaging and offers accordingly.
+
+**In summary, while the current data doesn't definitively prove audience fatigue, the ROAS decline, coupled with the lack of data to rule it out, makes it a strong possibility. Prioritize gathering audience overlap and frequency data to confirm or deny this hypothesis and take appropriate action.**
+
+
+
+2025-11-30 13:50:40,989 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [campaign_name, adset_name, creative_message, spend, revenue, impressions, clicks, ctr, cpc, roas]
+Index: []
+
+[DATA FINDINGS]:
+The decline in ROAS began to accelerate around 2025-03-03
+
+[DATA FINDINGS]:
+Insufficient data to calcul...
+
+
+2025-11-30 13:50:44,761 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've reviewed the available data to analyze the ROAS decline and identify underperforming ad placements. Here's what I've found:
+
+*   **Data Limitations:** The initial data provided is insufficient. The empty DataFrame prevents a detailed analysis of campaign, ad set, creative, and performance metrics (spend, revenue, impressions, clicks, CTR, CPC, ROAS). We need data populated in the dataframe to identify specific winners and losers.
+
+*   **ROAS Decline Timeline:** The ROAS decline accelerated around 2025-03-03. This is a crucial point in time. We need to investigate what changes (campaign updates, audience adjustments, creative refreshes, external factors) occurred around this date.
+
+*   **Placement Performance Analysis Impossible:** Without placement-specific data (Facebook Feed, Instagram Stories, etc.), I cannot determine which placements are underperforming and contributing to the ROAS decline.
+
+**To provide actionable insights, I require the following data broken down by ad placement (e.g., Facebook Feed, Instagram Stories, Audience Network, etc.) for the last 30 days, and ideally, a comparison to the 30 days prior to that:**
+
+*   **Spend:** Total ad spend for each placement.
+*   **Revenue:** Revenue generated from each placement.
+*   **Impressions:** Number of times ads were shown on each placement.
+*   **Clicks:** Number of clicks received on each placement.
+*   **CTR (Click-Through Rate):** Click-through rate for each placement.
+*   **CPC (Cost-Per-Click):** Cost per click for each placement.
+*   **ROAS (Return on Ad Spend):** Return on ad spend for each placement.
+
+**Once I have this data, I can perform the following analysis:**
+
+*   **Identify Underperforming Placements:** Pinpoint placements with low ROAS and high spend.
+*   **Analyze CTR Trends:** Determine if CTR is declining on specific placements, indicating creative fatigue or audience saturation.
+*   **Compare Placement Performance:** Compare ROAS, CTR, and CPC across different placements to identify the most and least efficient options.
+*   **Recommend Optimization Strategies:** Suggest shifting budget from underperforming placements to higher-performing ones, refreshing creatives for placements with declining CTR, or exploring new placements.
+
+
+
+2025-11-30 13:50:46,367 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [campaign_name, adset_name, creative_message, spend, revenue, impressions, clicks, ctr, cpc, roas]
+Index: []
+
+[DATA FINDINGS]:
+The decline in ROAS began to accelerate around 2025-03-03
+
+[DATA FINDINGS]:
+Insufficient data to calcul...
+
+
+2025-11-30 13:50:49,472 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've analyzed the provided data to address the performance of different creative formats. However, I must reiterate the significant limitations due to the lack of data in the initial DataFrame.
+
+**Analysis of Creative Format Performance (Limited by Data Availability):**
+
+*   **Data Insufficiency:** The empty DataFrame prevents any meaningful analysis of creative format performance. Without data on spend, revenue, impressions, clicks, CTR, CPC, and ROAS broken down by creative format (image, video, carousel, etc.), it's impossible to identify underperforming formats.
+
+*   **Inability to Identify Creative Fatigue:** Without time-series data on CTR for each creative format, I cannot determine if any formats are experiencing creative fatigue (declining CTR over time).
+
+*   **No Identification of Winners vs. Losers:** The absence of performance metrics for each creative format means I cannot identify which formats are generating the highest ROAS or which are consistently underperforming.
+
+**To properly analyze creative format performance, I require the following data, broken down by creative format (image, video, carousel, etc.) and ideally, tracked over time:**
+
+*   **Spend:** Total ad spend for each creative format.
+*   **Revenue:** Revenue generated by each creative format.
+*   **Impressions:** Number of times ads of each format were shown.
+*   **Clicks:** Number of clicks received by each format.
+*   **CTR (Click-Through Rate):** Click-through rate for each format.
+*   **CPC (Cost-Per-Click):** Cost per click for each format.
+*   **ROAS (Return on Ad Spend):** Return on ad spend for each format.
+
+**With this data, I could then:**
+
+*   **Compare ROAS across formats:** Identify the most and least profitable creative formats.
+*   **Analyze CTR trends for each format:** Detect creative fatigue and determine when to refresh creatives.
+*   **Calculate efficiency metrics:** Determine which formats deliver the most clicks and conversions for the lowest cost.
+*   **Recommend budget allocation:** Suggest shifting budget towards higher-performing creative formats.
+
+
+
+2025-11-30 13:50:51,126 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [campaign_name, adset_name, creative_message, spend, revenue, impressions, clicks, ctr, cpc, roas]
+Index: []
+
+[DATA FINDINGS]:
+The decline in ROAS began to accelerate around 2025-03-03
+
+[DATA FINDINGS]:
+Insufficient data to calcul...
+
+
+2025-11-30 13:50:54,284 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've reviewed the available data to analyze the potential impact of landing page experience on the ROAS decline. However, I must emphasize the significant limitations due to the lack of data in the initial DataFrame.
+
+**Analysis of Landing Page Experience (Limited by Data Availability):**
+
+*   **Data Insufficiency:** The empty DataFrame prevents any meaningful analysis of landing page performance. Without data on spend, revenue, impressions, clicks, CTR, CPC, and ROAS, it's impossible to correlate landing page issues with ad performance.
+
+*   **Inability to Identify Landing Page Bounce Rate:** Without data on bounce rate, I cannot determine if users are leaving the landing page immediately after clicking the ad, which could indicate issues with page load speed, mobile responsiveness, or content relevance.
+
+*   **No Identification of Conversion Rate:** The absence of conversion rate data means I cannot identify if users are not completing the desired action (e.g., purchase, sign-up) on the landing page, which could indicate issues with conversion optimization.
+
+**To properly analyze landing page performance, I require the following data, broken down by landing page and ideally, tracked over time:**
+
+*   **Landing Page URL:** The specific URL of the landing page being analyzed.
+*   **Clicks:** Number of clicks received by the landing page.
+*   **Bounce Rate:** Percentage of users who leave the landing page immediately after arriving.
+*   **Conversion Rate:** Percentage of users who complete the desired action on the landing page.
+*   **Page Load Speed:** Time it takes for the landing page to load.
+*   **Mobile Friendliness:** A measure of how well the landing page is optimized for mobile devices.
+
+**With this data, I could then:**
+
+*   **Correlate Landing Page Issues with ROAS:** Identify if landing pages with high bounce rates, low conversion rates, or slow page load speeds are associated with lower ROAS.
+*   **Analyze Mobile Friendliness:** Determine if landing pages that are not mobile-friendly are performing poorly on mobile devices.
+*   **Recommend Optimization Strategies:** Suggest improvements to landing page design, content, and functionality to improve conversion rates and ROAS.
+
+
+
+2025-11-30 13:50:55,719 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [campaign_name, adset_name, creative_message, spend, revenue, impressions, clicks, ctr, cpc, roas]
+Index: []
+
+[DATA FINDINGS]:
+The decline in ROAS began to accelerate around 2025-03-03
+
+[DATA FINDINGS]:
+Insufficient data to calcul...
+
+
+2025-11-30 13:50:59,507 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, based on the provided insights, I can't develop specific ad copy variations due to the **critical lack of performance data.** The empty DataFrame and missing placement/format breakdowns prevent identifying top-performing campaigns, ad sets, or any signs of audience/creative fatigue.
+
+**Before I can create effective ad copy variations, I need the following data:**
+
+*   **Campaign & Ad Set Performance:** Spend, Revenue, Impressions, Clicks, CTR, CPC, and ROAS for each campaign and ad set.
+*   **Placement Performance:** The same metrics broken down by ad placement (Facebook Feed, Instagram Stories, etc.).
+*   **Creative Format Performance:** The same metrics broken down by creative format (image, video, carousel, etc.).
+*   **Time-Series Data:** Performance data tracked over time (at least the last 30 days, ideally longer) to identify trends like declining CTR (creative fatigue).
+
+**Without this data, any ad copy suggestions would be purely speculative and unlikely to improve performance.**
+
+**Once I have the necessary data, I can:**
+
+1.  **Identify Top Performers:** Pinpoint campaigns, ad sets, placements, and creative formats with the highest ROAS.
+2.  **Diagnose Issues:** Determine if ROAS decline is due to audience fatigue (low CTR), creative fatigue (declining CTR over time), underperforming placements, or inefficient creative formats.
+3.  **Develop Targeted Ad Copy:** Craft new ad copy variations that address the specific issues identified. For example:
+
+    *   **Audience Fatigue:** Test new audience targeting options or broaden existing audiences. Ad copy could focus on new benefits or angles to re-engage the audience.
+    *   **Creative Fatigue:** Develop entirely new creative concepts (images, videos, headlines, body text, CTAs).
+    *   **Underperforming Placements:** Shift budget to better-performing placements and tailor ad copy to suit those specific placements (e.g., shorter, more visually driven copy for Instagram Stories).
+    *   **Inefficient Creative Formats:** Focus on developing new creatives in the formats that are driving the best results.
+
+**In summary, I need the requested data to provide data-driven and effective ad copy variations.**
+
+
+
+2025-11-30 13:51:01,411 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [campaign_name, adset_name, creative_message, spend, revenue, impressions, clicks, ctr, cpc, roas]
+Index: []
+
+[DATA FINDINGS]:
+The decline in ROAS began to accelerate around 2025-03-03
+
+[DATA FINDINGS]:
+Insufficient data to calcul...
+
+
+2025-11-30 13:51:04,155 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, based on the provided insights, I am unable to develop any new image/video ad creatives.
+
+**Reasoning:**
+
+*   **Critical Data Deficiency:** The core problem is the complete lack of performance data. The empty DataFrame and missing breakdowns by placement and creative format prevent any meaningful analysis.
+*   **No Identification of Winners/Losers:** Without data on spend, revenue, impressions, clicks, CTR, CPC, and ROAS for different campaigns, ad sets, placements, and creative formats, it's impossible to identify what's working and what's not.
+*   **Inability to Diagnose Issues:** I cannot determine if the ROAS decline is due to audience fatigue, creative fatigue, underperforming placements, or inefficient creative formats.
+*   **Speculative Creative Development:** Creating new creatives without data would be purely speculative and unlikely to improve performance.
+
+**Before I can develop effective ad creatives, I require the following data:**
+
+*   **Campaign & Ad Set Performance:** Spend, Revenue, Impressions, Clicks, CTR, CPC, and ROAS for each campaign and ad set.
+*   **Placement Performance:** The same metrics broken down by ad placement (Facebook Feed, Instagram Stories, etc.).
+*   **Creative Format Performance:** The same metrics broken down by creative format (image, video, carousel, etc.).
+*   **Time-Series Data:** Performance data tracked over time (at least the last 30 days, ideally longer) to identify trends like declining CTR (creative fatigue).
+
+**Once I have this data, I can:**
+
+1.  **Identify Top Performers:** Pinpoint campaigns, ad sets, placements, and creative formats with the highest ROAS.
+2.  **Diagnose Issues:** Determine if ROAS decline is due to audience fatigue (low CTR), creative fatigue (declining CTR over time), underperforming placements, or inefficient creative formats.
+3.  **Develop Targeted Ad Creatives:** Craft new ad creatives that address the specific issues identified.
+
+
+
+2025-11-30 13:51:05,960 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a World-Class Direct Response Copywriter for Facebook Ads.
+
+TASK:
+Generate 3 distinct ad variations based on the provided performance data and insights.
+- If CTR is low, focus on a stronger "Hook" or headline.
+- If Conversion Rate is low, focus on the "Offer" or "Call to Action" (CTA).
+- Maintain the brand voice: Professional yet urgent.
+
+INPUT CONTEXT:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Colu...
+
+
+2025-11-30 13:51:10,772 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```json
+{
+  "variations": [
+    {
+      "headline": "URGENT: Data-Driven Decisions Needed - ROAS Declining!",
+      "primary_text": "We've identified a ROAS decline starting around March 3rd, 2025. To reverse this trend, we need your data NOW. Provide campaign, ad set, placement, and creative performance metrics (Spend, Revenue, Impressions, Clicks, CTR, CPC, ROAS) for the last 30 days. Action is required to optimize ad spend and maximize returns. Failure to act will result in continued losses.",
+      "reasoning": "This variation directly addresses the ROAS decline with a sense of urgency. It clearly states the problem, the timeline, and the required data. The call to action is direct and emphasizes the consequences of inaction. This is designed to prompt immediate data provision for analysis. Adheres to Facebook's advertising policies by focusing on a business need and avoiding misleading claims."
+    },
+    {
+      "headline": "ROAS Alert: Critical Data Missing - Act Now!",
+      "primary_text": "Our analysis reveals a concerning ROAS decline, but we're missing crucial data to pinpoint the cause. We need detailed performance metrics (Spend, Revenue, Impressions, Clicks, CTR, CPC, ROAS) broken down by campaign, ad set, placement (Facebook Feed, Instagram Stories, etc.), and creative format (image, video, carousel). Provide this data immediately to enable data-driven optimization and prevent further losses. Time is of the essence.",
+      "reasoning": "This variation highlights the critical data gap preventing effective optimization. It emphasizes the need for data broken down by various dimensions (campaign, ad set, placement, creative format) to enable a comprehensive analysis. The urgency is maintained, and the call to action is clear and direct. Adheres to Facebook's advertising policies by focusing on a business need and avoiding misleading claims."
+    },
+    {
+      "headline": "ROAS Drowning? We Need Your Data to Rescue It!",
+      "primary_text": "ROAS is declining, and we're operating in the dark. To diagnose the problem and implement effective solutions, we urgently require comprehensive performance data. Provide Spend, Revenue, Impressions, Clicks, CTR, CPC, and ROAS for all campaigns, ad sets, placements, and creative formats. The sooner we receive this data, the sooner we can identify the root cause and restore ROAS to healthy levels. Don't delay – provide the data today!",
+      "reasoning": "This variation uses a more evocative metaphor ('ROAS Drowning') to capture attention and convey the severity of the situation. It reinforces the need for comprehensive data to diagnose the problem and implement effective solutions. The call to action is strong and emphasizes the importance of immediate action. Adheres to Facebook's advertising policies by focusing on a business need and avoiding misleading claims."
+    }
+  ]
+}
+```
+
+
+2025-11-30 13:51:10,774 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Python Data Analyst. You have access to a pandas DataFrame named 'df'.
+
+DATA SCHEMA:
+The 'df' contains these columns:
+- campaign_name (str): Name of the campaign
+- adset_name (str): Name of the ad set
+- date (str): Date in YYYY-MM-DD
+- spend (float): Money spent
+- impressions (int): Views
+- clicks (int): Clicks
+- ctr (float): Click-Through Rate
+- purchases (int): Number of conversions
+- revenue (float): Total revenue
+- roas (float): Return on Ad Spend
+- creative_type (str): Type ...
+
+
+2025-11-30 13:51:12,716 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```python
+import pandas as pd
+from datetime import timedelta
+
+today = pd.to_datetime('today')
+start_date = today - timedelta(days=7)
+
+new_creatives_df = df[pd.to_datetime(df['date']) >= start_date]
+
+daily_performance = new_creatives_df.groupby('date').agg(
+    impressions=('impressions', 'sum'),
+    clicks=('clicks', 'sum'),
+    spend=('spend', 'sum'),
+    revenue=('revenue', 'sum')
+)
+
+daily_performance['ctr'] = daily_performance['clicks'] / daily_performance['impressions']
+daily_performance['cpc'] = daily_performance['spend'] / daily_performance['clicks']
+daily_performance['roas'] = daily_performance['revenue'] / daily_performance['spend']
+
+result = daily_performance.to_string()
+```
+
+
+2025-11-30 13:51:12,735 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [campaign_name, adset_name, creative_message, spend, revenue, impressions, clicks, ctr, cpc, roas]
+Index: []
+
+[DATA FINDINGS]:
+The decline in ROAS began to accelerate around 2025-03-03
+
+[DATA FINDINGS]:
+Insufficient data to calcul...
+
+
+2025-11-30 13:51:17,176 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've analyzed the provided data to compare the performance of new creatives versus old creatives. However, I must emphasize the **critical limitation** due to the lack of data in the provided DataFrames.
+
+**Analysis of New vs. Old Creative Performance (Severely Limited by Data Availability):**
+
+*   **Data Insufficiency:** The empty DataFrame prevents any meaningful comparison of new and old creative performance. Without data on impressions, clicks, spend, revenue, CTR, CPC, and ROAS, it's impossible to identify any improvements or declines.
+*   **Inability to Identify Creative Fatigue:** Without time-series data on CTR for both new and old creatives, I cannot determine if the old creatives were experiencing creative fatigue (declining CTR over time) before the new creatives were introduced.
+*   **No Identification of Winners vs. Losers:** The absence of performance metrics for each creative set (new vs. old) means I cannot identify which set is generating the highest ROAS or which is consistently underperforming.
+
+**To properly analyze the performance of new creatives compared to old creatives, I require the following data, broken down by creative set (new vs. old) and tracked over time (at least the last 30 days, ideally longer):**
+
+*   **Impressions:** Number of times ads of each creative set were shown.
+*   **Clicks:** Number of clicks received by each creative set.
+*   **Spend:** Total ad spend for each creative set.
+*   **Revenue:** Revenue generated by each creative set.
+*   **CTR (Click-Through Rate):** Click-through rate for each creative set.
+*   **CPC (Cost-Per-Click):** Cost per click for each creative set.
+*   **ROAS (Return on Ad Spend):** Return on ad spend for each creative set.
+
+**With this data, I could then:**
+
+*   **Compare ROAS between new and old creatives:** Determine if the new creatives are more or less profitable than the old creatives.
+*   **Analyze CTR trends for each creative set:** Detect creative fatigue in the old creatives and assess the initial engagement of the new creatives.
+*   **Calculate efficiency metrics:** Determine which creative set delivers the most clicks and conversions for the lowest cost.
+*   **Recommend optimization strategies:** Suggest focusing on the creative set that is driving the best results and iterating on the underperforming set.
+
+**Recommendations for Further Optimization (Conditional on Data Availability):**
+
+*   **A/B Testing:** Once data is available, implement rigorous A/B testing of different creative elements (headlines, images, videos, CTAs) within both the new and old creative sets.
+*   **Audience Segmentation:** Analyze performance across different audience segments to identify which audiences respond best to each creative set.
+*   **Placement Optimization:** Evaluate performance across different ad placements (Facebook Feed, Instagram Stories, etc.) to determine which placements are most effective for each creative set.
+*   **Continuous Monitoring:** Continuously monitor performance metrics and make adjustments as needed to optimize ROAS.
+
+**In summary, I need the requested data to provide a data-driven and effective analysis of new vs. old creative performance and to make informed recommendations for further optimization.**
+
+
+
+2025-11-30 13:54:10,460 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Strategist.
+
+TASK:
+Break down the user's query into specific steps for your team.
+Your team consists of:
+1. Data Agent (Loads CSV, calculates metrics like ROAS, Spend, CTR)
+2. Insight Agent (Finds patterns, explains "Why" things happened)
+3. Creative Agent (Writes new ad copy)
+
+USER QUERY:
+Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+OUTPUT FORMAT:
+Return a JSON object with a "steps" key.
+Example:
+{
+  "steps": [
+    "Ask Data A...
+
+
+2025-11-30 13:54:14,481 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```json
+{
+  "steps": [
+    "Data Agent: Load CSV data for the last 30 days, including Spend, Revenue, Impressions, Clicks, and Conversions. Calculate daily ROAS, CTR, CPC, and Conversion Rate.",
+    "Insight Agent: Analyze the ROAS decline over the last 30 days. Identify potential contributing factors such as: increased competition, ad fatigue, changes in audience behavior, seasonality, landing page performance, and bidding strategy effectiveness. Look for correlations between ROAS decline and changes in CTR, CPC, and Conversion Rate. Segment the data by campaign, ad set, and ad to pinpoint specific areas of underperformance.",
+    "Insight Agent: Investigate if there were any significant external factors that could have impacted performance, such as changes in Facebook's algorithm, competitor activity, or economic events.",
+    "Insight Agent: Review the targeting settings for each ad set to ensure they are still relevant and effective. Check for audience overlap and potential audience saturation.",
+    "Creative Agent: Based on the Insight Agent's findings regarding potential ad fatigue and areas of underperformance, develop 3-5 new ad copy variations per underperforming ad. Focus on highlighting different product benefits, using stronger calls to action, and testing different tones and styles. Provide variations for headlines, descriptions, and primary text.",
+    "Creative Agent: Suggest new image/video creative concepts based on current trends and competitor analysis. Ensure the visuals are high-quality and relevant to the target audience.",
+    "Data Agent: After new creatives are launched, monitor their performance closely for the first 7 days, tracking ROAS, CTR, CPC, and Conversion Rate. Provide daily reports to the team.",
+    "Insight Agent: Analyze the performance of the new creatives and provide insights on what's working and what's not. Identify any further optimizations that can be made."
+  ]
+}
+```
+
+
+2025-11-30 13:54:14,483 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Python Data Analyst. You have access to a pandas DataFrame named 'df'.
+
+DATA SCHEMA:
+The 'df' contains these columns:
+- campaign_name (str): Name of the campaign
+- adset_name (str): Name of the ad set
+- date (str): Date in YYYY-MM-DD
+- spend (float): Money spent
+- impressions (int): Views
+- clicks (int): Clicks
+- ctr (float): Click-Through Rate
+- purchases (int): Number of conversions
+- revenue (float): Total revenue
+- roas (float): Return on Ad Spend
+- creative_type (str): Type ...
+
+
+2025-11-30 13:54:16,937 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```python
+import pandas as pd
+from datetime import datetime, timedelta
+
+today = datetime.today()
+thirty_days_ago = today - timedelta(days=30)
+thirty_days_ago_str = thirty_days_ago.strftime('%Y-%m-%d')
+
+df['date'] = pd.to_datetime(df['date'])
+df_recent = df[df['date'] >= thirty_days_ago_str].copy()
+
+df_recent['roas'] = df_recent['revenue'] / df_recent['spend']
+df_recent['ctr'] = df_recent['clicks'] / df_recent['impressions']
+df_recent['cpc'] = df_recent['spend'] / df_recent['clicks']
+df_recent['conversion_rate'] = df_recent['purchases'] / df_recent['clicks']
+
+daily_metrics = df_recent.groupby('date')[['spend', 'revenue', 'impressions', 'clicks', 'purchases']].sum().reset_index()
+
+daily_metrics['roas'] = daily_metrics['revenue'] / daily_metrics['spend']
+daily_metrics['ctr'] = daily_metrics['clicks'] / daily_metrics['impressions']
+daily_metrics['cpc'] = daily_metrics['spend'] / daily_metrics['clicks']
+daily_metrics['conversion_rate'] = daily_metrics['purchases'] / daily_metrics['clicks']
+
+result = daily_metrics.to_string()
+```
+
+
+2025-11-30 13:54:16,960 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [date, spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+TASK:
+Analyze the data above and answer the user's question.
+- Look for correlations (e.g., High Spend + Low ROAS = Inefficiency).
+...
+
+
+2025-11-30 13:54:24,209 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've analyzed the provided data. Unfortunately, the DataFrame is empty. This means I have no data on spend, revenue, impressions, clicks, purchases, ROAS, CTR, CPC, or conversion rate for the last 30 days.
+
+Therefore, I cannot definitively analyze the ROAS decline or identify specific contributing factors. However, I can provide a general framework for what I *would* do if data were available, and suggest areas to investigate once data is populated:
+
+**Analysis Framework (If Data Were Available):**
+
+*   **Overall ROAS Trend:**
+    *   Quantify the ROAS decline over the 30-day period (e.g., "ROAS decreased by X%").
+    *   Visualize the ROAS trend over time to identify the start and rate of decline.
+
+*   **Potential Contributing Factors (Requires Data):**
+
+    *   **Increased Competition (Requires External Data - Not Provided):**
+        *   *Without market data, I can't assess competitive pressure.*  Ideally, we'd look at auction insights to see if our impression share is decreasing or if CPCs are rising due to increased competition.
+
+    *   **Ad Fatigue (Requires Data):**
+        *   **CTR Decline:** A significant drop in CTR over time, especially for specific ads, would strongly suggest ad fatigue. I'd calculate the CTR change week-over-week or bi-weekly.
+        *   **Frequency Increase:**  If the average frequency (impressions per user) is increasing without a corresponding increase in conversions, it indicates users are seeing the ads too often and are becoming desensitized.
+
+    *   **Changes in Audience Behavior (Requires Data):**
+        *   **Audience Segmentation:** Analyze ROAS, CTR, CPC, and Conversion Rate by audience segment (e.g., age, gender, interests, custom audiences).  Look for segments where performance is declining more rapidly.
+        *   **Audience Saturation:** If targeting very narrow audiences, we might be reaching the limit of potential customers.
+
+    *   **Seasonality (Requires Historical Data - Not Provided):**
+        *   *Without historical data, I can't assess seasonality.* Ideally, we'd compare the last 30 days to the same period in previous years to see if the ROAS decline is a recurring seasonal trend.
+
+    *   **Landing Page Performance (Requires Data & External Analytics):**
+        *   *Requires integration with Google Analytics or similar.*  I'd analyze landing page bounce rate, time on page, and conversion rate. A sudden increase in bounce rate or decrease in time on page could indicate a problem with the landing page experience.
+
+    *   **Bidding Strategy Effectiveness (Requires Data):**
+        *   **CPC Analysis:**  Track CPC trends.  A significant increase in CPC without a corresponding increase in conversion rate could indicate an inefficient bidding strategy.
+        *   **Bid Strategy Changes:**  If any changes were made to the bidding strategy (e.g., from manual bidding to automated bidding), investigate whether those changes correlate with the ROAS decline.
+
+*   **Correlations (Requires Data):**
+
+    *   Calculate correlations between ROAS and CTR, CPC, and Conversion Rate.  For example:
+        *   A strong negative correlation between CPC and ROAS would suggest that rising costs are hurting profitability.
+        *   A strong positive correlation between Conversion Rate and ROAS would highlight the importance of optimizing the conversion funnel.
+
+*   **Segmentation (Requires Data):**
+
+    *   **Campaign/Ad Set/Ad Level Analysis:**  Break down the data by campaign, ad set, and ad to identify specific areas of underperformance.
+        *   Identify campaigns/ad sets/ads with the largest ROAS declines.
+        *   Identify campaigns/ad sets/ads with the lowest current ROAS.
+        *   Identify campaigns/ad sets/ads with the highest spend and lowest ROAS (these are prime candidates for optimization).
+
+**In summary, I need data to perform a meaningful analysis. Once the data is available, I can apply the framework above to pinpoint the causes of the ROAS decline and recommend specific actions.**
+
+
+
+2025-11-30 13:54:25,846 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [date, spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+TASK:
+Analyze the data above and answer the user's question.
+- Look for correlations (e.g., High Spend + Low ROAS = Inefficiency).
+...
+
+
+2025-11-30 13:54:31,991 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've investigated potential external factors that could explain the lack of ROAS data and the need for new creatives. Given the empty dataset, it's difficult to pinpoint the exact cause of the performance decline, but here's a breakdown of potential external influences:
+
+*   **Data Integration Issues:** The empty dataset itself suggests a primary issue: data is not being properly collected or integrated into the reporting system. Before attributing performance issues to external factors, confirm the accuracy and completeness of the data. Investigate potential problems with the Facebook Ads API connection, tracking pixels, or data warehousing processes.
+
+*   **Facebook Algorithm Changes:** Facebook frequently updates its algorithm, which can significantly impact ad delivery, targeting, and cost-effectiveness.
+
+    *   **Impact:** Algorithm changes could lead to decreased reach, higher costs per click (CPC), and lower conversion rates, ultimately impacting ROAS.
+    *   **Investigation:** Research recent Facebook algorithm updates that may have occurred within the last 30 days. Look for changes related to ad ranking, bidding strategies, targeting options, or ad formats.
+
+*   **Increased Competitor Activity:** A surge in competitor advertising can drive up ad costs and reduce your ad's visibility.
+
+    *   **Impact:** Increased competition can lead to higher CPCs, lower click-through rates (CTR), and decreased ROAS.
+    *   **Investigation:** Monitor competitor ad campaigns (if possible), analyze industry trends, and assess whether new competitors have entered the market or existing competitors have significantly increased their ad spend. Tools like Facebook Ad Library can help with this.
+
+*   **Economic Events/Seasonality:** Broader economic trends or seasonal fluctuations in consumer demand can influence advertising performance.
+
+    *   **Impact:** Economic downturns or off-season periods can lead to decreased consumer spending and lower conversion rates.
+    *   **Investigation:** Consider whether any significant economic events (e.g., inflation spikes, interest rate hikes) or seasonal trends (e.g., post-holiday slump) have occurred within the last 30 days that could have affected consumer behavior.
+
+*   **Changes in Facebook's Ad Policies:** Changes to Facebook's advertising policies can impact ad approval rates, targeting options, and ad formats.
+
+    *   **Impact:** Stricter policies or limitations on certain ad types can disrupt campaign performance.
+    *   **Investigation:** Review Facebook's advertising policies for any recent updates or changes that may have affected your campaigns.
+
+*   **Attribution Window Changes:** If the attribution window used for reporting has been altered, it could lead to a perceived decline in ROAS.
+
+    *   **Impact:** A shorter attribution window might attribute fewer conversions to your ads, resulting in a lower ROAS.
+    *   **Investigation:** Verify that the attribution window settings in Facebook Ads Manager haven't been changed recently.
+
+**Recommendations:**
+
+1.  **Prioritize Data Integrity:** Resolve the data integration issue immediately. Ensure accurate and complete data collection before making any strategic decisions.
+2.  **Research Algorithm Changes:** Stay informed about Facebook algorithm updates and adapt your strategies accordingly.
+3.  **Monitor Competitor Activity:** Keep an eye on competitor campaigns and adjust your bidding and targeting strategies as needed.
+4.  **Consider Economic Factors:** Factor in economic trends and seasonality when planning and evaluating campaigns.
+5.  **Review Ad Policies:** Ensure your ads comply with Facebook's advertising policies.
+6.  **Verify Attribution Settings:** Confirm that the attribution window is appropriate for your business and hasn't been altered.
+
+
+
+2025-11-30 13:54:33,793 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [date, spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+TASK:
+Analyze the data above and answer the user's question.
+- Look for correlations (e.g., High Spend + Low ROAS = Inefficiency).
+...
+
+
+2025-11-30 13:54:38,362 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've reviewed the provided data. Unfortunately, the DataFrame is empty. This means there's no data available for the last 30 days regarding spend, revenue, impressions, clicks, purchases, ROAS, CTR, CPC, or conversion rate.
+
+**Therefore, I cannot perform a data-driven analysis of the ROAS decline or suggest new creatives based on performance trends.**
+
+However, I can still provide general recommendations for reviewing targeting settings, assuming you can access that information within the Facebook Ads Manager:
+
+*   **Audience Relevance and Effectiveness:**
+    *   **Review Targeting Criteria:** For each ad set, meticulously examine the targeting parameters (interests, demographics, behaviors, custom audiences, lookalike audiences). Ensure these parameters still align with your ideal customer profile and the product/service being advertised.
+    *   **Performance by Segment:** If historical data is available (even outside the last 30 days), analyze performance metrics (ROAS, conversion rate) for each audience segment within each ad set. Identify underperforming segments that may need refinement or removal.
+    *   **Landing Page Alignment:** Confirm that the landing page experience is optimized for each targeted audience segment. The messaging and content should resonate with their specific needs and interests.
+
+*   **Audience Overlap:**
+    *   **Facebook's Audience Overlap Tool:** Utilize Facebook's built-in tool to identify potential overlap between different ad sets and audiences. Significant overlap can lead to internal competition and increased costs.
+    *   **Consolidation or Exclusion:** If substantial overlap exists, consider consolidating overlapping audiences into a single ad set or using exclusion targeting to prevent ad delivery to the same users across multiple ad sets.
+
+*   **Audience Saturation:**
+    *   **Frequency Capping:** Implement frequency capping to limit the number of times a user sees your ad within a specific timeframe. This can help prevent ad fatigue and improve ad recall.
+    *   **Audience Refresh:** Regularly refresh your audiences by adding new users or expanding your lookalike audiences. This can help combat audience saturation and maintain ad performance.
+    *   **Creative Rotation:** Continuously introduce new ad creatives to keep your ads fresh and engaging. Stale creatives can lead to ad fatigue and decreased performance.
+
+**Next Steps (Crucial):**
+
+1.  **Data Retrieval:** Prioritize retrieving the missing data for the last 30 days. This is essential for a proper analysis.
+2.  **Historical Analysis:** Once data is available, analyze trends over a longer period (e.g., 90 days) to identify patterns and seasonality.
+3.  **A/B Testing:** Implement A/B testing to compare different targeting strategies, ad creatives, and landing page experiences. This will provide valuable insights for optimizing your campaigns.
+
+Without the data, I can only offer general advice. Please provide the necessary data for a more specific and effective analysis.
+
+
+
+2025-11-30 13:54:40,283 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [date, spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+TASK:
+Analyze the data above and answer the user's question.
+- Look for correlations (e.g., High Spend + Low ROAS = Inefficiency).
+...
+
+
+2025-11-30 13:54:42,845 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've reviewed the provided data.
+
+**Analysis of ROAS Decline (Last 30 Days):**
+
+*   **Critical Issue: Empty Dataframe.** The provided dataframe is empty. This means there is *no data* available for the last 30 days regarding spend, revenue, impressions, clicks, purchases, ROAS, CTR, CPC, or conversion rate. Therefore, I cannot perform any meaningful analysis of the ROAS decline, identify creative fatigue, or pinpoint winning/losing audiences or creatives.
+
+**Recommendations:**
+
+1.  **Data Verification:** The immediate priority is to verify the data source and ensure that the correct data is being pulled for the last 30 days. Without data, no analysis or optimization is possible.
+2.  **Once Data is Available:** Once the data issue is resolved, I will need to re-run the analysis, looking for:
+    *   **ROAS Trends:** A clear downward trend in ROAS over the 30-day period.
+    *   **Spend vs. ROAS Correlation:** Periods of high spend coupled with low ROAS, indicating inefficiency.
+    *   **CTR Decline:** Decreasing CTR over time, suggesting creative fatigue.
+    *   **Audience/Creative Performance:** Identification of specific audiences or creatives that are significantly underperforming.
+
+I am unable to provide new ad copy variations without any data to base them on.
+
+
+
+2025-11-30 13:54:44,382 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a World-Class Direct Response Copywriter for Facebook Ads.
+
+TASK:
+Generate 3 distinct ad variations based on the provided performance data and insights.
+- If CTR is low, focus on a stronger "Hook" or headline.
+- If Conversion Rate is low, focus on the "Offer" or "Call to Action" (CTA).
+- Maintain the brand voice: Professional yet urgent.
+
+INPUT CONTEXT:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Colu...
+
+
+2025-11-30 13:54:49,706 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```json
+{
+  "variations": [
+    {
+      "headline": "Unlock Hidden Profits: Data-Driven Decisions Await",
+      "primary_text": "Stop guessing, start knowing. Our platform transforms raw data into actionable insights, boosting your ROAS and maximizing your marketing spend. Get a free demo today and see the difference!",
+      "image_video_concept": "Short, dynamic video showcasing the platform's dashboard with visually appealing charts and graphs. Overlay text highlighting key metrics and benefits. Use a professional voiceover and upbeat background music.",
+      "reasoning": "Addresses the core issue of ROAS decline by emphasizing data-driven decision-making. The 'Unlock Hidden Profits' headline is intriguing, and the free demo CTA encourages immediate action. The video concept aims to showcase the platform's value proposition in a visually engaging way.",
+      "call_to_action": "Get a Free Demo"
+    },
+    {
+      "headline": "Is Your Marketing Data Working Hard Enough?",
+      "primary_text": "Don't let valuable data sit idle. Our AI-powered platform analyzes your marketing performance in real-time, identifying opportunities for optimization and driving significant ROI. Limited-time offer: Get 20% off your first month!",
+      "image_video_concept": "Split-screen video. One side shows a chaotic, disorganized spreadsheet. The other side shows the platform's clean, organized interface with clear insights. Use contrasting colors and animations to highlight the difference. Include customer testimonials.",
+      "reasoning": "Poses a question to engage the audience and highlights the problem of underutilized data. The 'Limited-time offer' creates urgency and incentivizes immediate action. The split-screen video concept visually demonstrates the platform's ability to transform messy data into actionable insights.",
+      "call_to_action": "Claim Your 20% Off"
+    },
+    {
+      "headline": "Stop the ROAS Bleed: Get Real-Time Insights Now",
+      "primary_text": "Drowning in data but starved for insights? Our platform provides real-time analysis and actionable recommendations to stop the ROAS decline and maximize your marketing ROI. Book a personalized consultation and discover how we can help you achieve your goals.",
+      "image_video_concept": "Animated infographic video illustrating the flow of data from various marketing channels into the platform. Highlight the key features of the platform, such as real-time reporting, predictive analytics, and automated optimization. Use a professional and authoritative tone.",
+      "reasoning": "Uses strong, urgent language ('Stop the ROAS Bleed') to grab attention and emphasizes the need for real-time insights. The 'Book a personalized consultation' CTA offers a more personalized approach and allows for a deeper understanding of the customer's needs. The infographic video concept aims to educate the audience about the platform's capabilities in a clear and concise manner.",
+      "call_to_action": "Book a Consultation"
+    }
+  ]
+}
+```
+
+
+2025-11-30 13:54:49,707 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Python Data Analyst. You have access to a pandas DataFrame named 'df'.
+
+DATA SCHEMA:
+The 'df' contains these columns:
+- campaign_name (str): Name of the campaign
+- adset_name (str): Name of the ad set
+- date (str): Date in YYYY-MM-DD
+- spend (float): Money spent
+- impressions (int): Views
+- clicks (int): Clicks
+- ctr (float): Click-Through Rate
+- purchases (int): Number of conversions
+- revenue (float): Total revenue
+- roas (float): Return on Ad Spend
+- creative_type (str): Type ...
+
+
+2025-11-30 13:54:52,680 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+```python
+import pandas as pd
+
+def calculate_cpc(spend, clicks):
+    if clicks == 0:
+        return 0
+    return spend / clicks
+
+def calculate_conversion_rate(purchases, clicks):
+    if clicks == 0:
+        return 0
+    return purchases / clicks
+
+# Assuming 'df' is already loaded and contains the necessary data
+df['date'] = pd.to_datetime(df['date'])
+
+# Get the first date when new creatives were launched
+first_date = df['date'].min()
+
+# Filter the data for the first 7 days after the launch
+df_7_days = df[(df['date'] >= first_date) & (df['date'] <= first_date + pd.Timedelta(days=6)]
+
+# Calculate CPC and Conversion Rate
+df_7_days['cpc'] = df_7_days.apply(lambda row: calculate_cpc(row['spend'], row['clicks']), axis=1)
+df_7_days['conversion_rate'] = df_7_days.apply(lambda row: calculate_conversion_rate(row['purchases'], row['clicks']), axis=1)
+
+# Group by date and calculate the sum of ROAS, CTR, CPC, and Conversion Rate
+daily_reports = df_7_days.groupby('date').agg({
+    'roas': 'sum',
+    'ctr': 'sum',
+    'cpc': 'sum',
+    'conversion_rate': 'sum'
+}).reset_index()
+
+# Format the date column
+daily_reports['date'] = daily_reports['date'].dt.strftime('%Y-%m-%d')
+
+result = daily_reports.to_string()
+```
+
+
+2025-11-30 13:54:52,681 [INFO] ----------------------
+🔵 INPUT PROMPT:
+ROLE:
+You are a Senior Facebook Ads Analyst. Your job is to interpret data and find the "Why" behind performance changes.
+
+INPUT DATA:
+Initial Query: Analyze the decline in ROAS over the last 30 days and suggest new creatives.
+
+[DATA FINDINGS]:
+Empty DataFrame
+Columns: [date, spend, revenue, impressions, clicks, purchases, roas, ctr, cpc, conversion_rate]
+Index: []
+
+[VALIDATED INSIGHT]:
+Okay, I've reviewed the provided data.
+
+**Analysis of ROAS Decline (Last 30 Days):**
+
+*   **Critical Issue: Em...
+
+
+2025-11-30 13:54:55,454 [INFO] ----------------------
+🟢 MODEL RESPONSE:
+Okay, I've reviewed the provided data.
+
+**Analysis of New Creative Performance:**
+
+*   **Critical Issue: Syntax Error.** The provided data contains a syntax error ("closing parenthesis ']' does not match opening parenthesis '('"). This error prevents the data from being properly processed and analyzed. Therefore, I cannot perform any meaningful analysis of the new creative performance, identify what's working, what's not, or suggest further optimizations.
+
+**Recommendations:**
+
+1.  **Data Correction:** The immediate priority is to correct the syntax error in the data. Ensure that all parentheses, brackets, and other syntax elements are properly matched and formatted.
+2.  **Once Data is Available:** Once the data issue is resolved, I will need to re-run the analysis, looking for:
+    *   **ROAS Trends:** Identify creatives with high ROAS and those with low ROAS.
+    *   **CTR & Conversion Rate:** Analyze the CTR and conversion rates of each creative to understand user engagement and effectiveness.
+    *   **Audience Segmentation:** Determine which audiences are responding positively to specific creatives.
+    *   **Cost Per Acquisition (CPA):** Calculate the CPA for each creative to assess efficiency in acquiring customers.
+
+I am unable to provide specific insights or optimization recommendations until the data error is resolved and the data can be properly analyzed.
+
+
