@@ -7,11 +7,6 @@ venv/
 # Environment Variables (CRITICAL)
 .env
 
-# Data
-data/*.csv
-data/*.json
-!data/.gitkeep
-
 
 # OS
 .DS_Store
