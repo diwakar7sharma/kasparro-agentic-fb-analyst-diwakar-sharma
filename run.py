@@ -4,6 +4,7 @@ from src.agents.planner import PlannerAgent
 from src.agents.data_agent import DataAgent
 from src.agents.insight_agent import InsightAgent
 from src.agents.creative_agent import CreativeAgent
+from src.agents.evaluator_agent import EvaluatorAgent
 
 def save_to_file(filename, content):
     with open(filename, "w") as f:
@@ -18,6 +19,7 @@ def main():
     data_agent = DataAgent()
     insight_agent = InsightAgent()
     creative_agent = CreativeAgent()
+    evaluator_agent = EvaluatorAgent() # <--- NEW: Initialized Evaluator
 
     # 2. Define the Big Question
     user_query = "Analyze the decline in ROAS over the last 30 days and suggest new creatives."
@@ -43,14 +45,24 @@ def main():
         if "Data Agent" in step:
             result = data_agent.analyze(step)
             context += f"\n\n[DATA FINDINGS]:\n{result}"
-            print(f"📊 Data Result: {result[:200]}...") # Print preview
+            print(f"📊 Data Result: {result[:200]}...") 
             
-        # Route to Insight Agent
+        # Route to Insight Agent (WITH VALIDATION)
         elif "Insight Agent" in step:
-            result = insight_agent.generate_insight(context, step)
-            context += f"\n\n[ANALYSIS]:\n{result}"
-            final_insights.append(result)
-            print(f"💡 Insight: {result[:200]}...")
+            # 1. Generate Insight
+            raw_insight = insight_agent.generate_insight(context, step)
+            print(f"💡 Raw Insight Generated: {raw_insight[:100]}...")
+            
+            # 2. Validate it!
+            evaluation = evaluator_agent.evaluate(context, raw_insight)
+            
+            if evaluation["confidence_score"] > 70:
+                print(f"✅ Insight Validated (Score: {evaluation['confidence_score']})")
+                context += f"\n\n[VALIDATED INSIGHT]:\n{raw_insight}"
+                final_insights.append(raw_insight)
+            else:
+                print(f"❌ Insight Rejected (Score: {evaluation['confidence_score']}): {evaluation['reasoning']}")
+                # Note: Rejected insights are NOT added to context or final_insights
             
         # Route to Creative Agent
         elif "Creative Agent" in step:
@@ -63,9 +75,12 @@ def main():
     
     report_content = f"# Facebook Ads Performance Report\n\n## 1. Executive Summary\n{user_query}\n\n"
     
-    report_content += "## 2. Key Insights\n"
-    for insight in final_insights:
-        report_content += f"{insight}\n\n"
+    report_content += "## 2. Key Insights (Validated)\n"
+    if not final_insights:
+        report_content += "No insights met the confidence threshold.\n"
+    else:
+        for insight in final_insights:
+            report_content += f"{insight}\n\n"
         
     report_content += "## 3. Recommended Creatives\n"
     for creative_batch in final_creatives:
